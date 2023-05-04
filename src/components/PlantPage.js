@@ -6,7 +6,9 @@ import PlantCard from "./PlantCard";
 
 function PlantPage() {
   
-  const [plants, setPlants] = useState([]) 
+  const [plants, setPlants] = useState([])
+  const [search, setSearch] = useState([]) 
+
   //fetch plant data
   useEffect(() => {
     fetch('http://localhost:6001/plants')
@@ -21,12 +23,15 @@ function PlantPage() {
     setPlants([...plants, obj])
   }
   
+  const handleSearch = (search) => {
+    setSearch(search)
+  }
 
   return (
     <main>
       <NewPlantForm handleAdd={handleAdd}/>
-      <Search />
-      <PlantList plants={plants}/>
+      <Search handleSearch={handleSearch}/>
+      <PlantList plants={plants} search={search} handleAdd={handleAdd}/>
     </main>
   );
 }
